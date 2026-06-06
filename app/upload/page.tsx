@@ -1,14 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { supabase } from "../lib/supabase";
 
 export default function UploadPage() {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-const searchParams = useSearchParams();
-const [competitionId, setCompetitionId] = useState<number | null>(null);
+
   useEffect(() => {
     if (!file) {
       setPreviewUrl(null);
@@ -20,13 +18,7 @@ const [competitionId, setCompetitionId] = useState<number | null>(null);
 
     return () => URL.revokeObjectURL(url);
   }, [file]);
-  useEffect(() => {
-  const id = searchParams.get("competition");
-
-  if (id) {
-    setCompetitionId(Number(id));
-  }
-}, [searchParams]);
+  
 
   async function uploadImage() {
     try {
@@ -51,7 +43,7 @@ const [competitionId, setCompetitionId] = useState<number | null>(null);
   .from("payments")
   .select("*")
   .eq("user_id", user.id)
-  .eq("competition_id", competitionId)
+  .eq("competition_id",1)
   .eq("status", "approved")
   .limit(1);
 
@@ -73,17 +65,14 @@ const [competitionId, setCompetitionId] = useState<number | null>(null);
         setLoading(false);
         return;
       }
-if (!competitionId) {
-  alert("Competition not found");
-  setLoading(false);
-  return;
-}
+
+
       const { error: dbError } = await supabase
         .from("submissions")
         .insert([
           {
             user_id: user.id,
-            competition_id: competitionId,
+            competition_id:1,
             image_url: uploadData.path,
           },
         ]);
