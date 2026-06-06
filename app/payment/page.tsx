@@ -1,23 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+
 import { supabase } from "../lib/supabase";
 
 export default function PaymentPage() {
   const [transactionId, setTransactionId] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  const searchParams = useSearchParams();
-const [competitionId, setCompetitionId] = useState<number | null>(null);
-
-  useEffect(() => {
-  const id = searchParams.get("competition");
-
-  if (id) {
-    setCompetitionId(Number(id));
-  }
-}, [searchParams]);
+  
 async function submitPayment() {
     try {
       if (!transactionId.trim()) {
@@ -54,29 +45,26 @@ async function submitPayment() {
         return;
       }
 
-      if (!competitionId) {
-  alert("Competition not found");
+    
+
+const { error } = await supabase
+  .from("payments")
+  .insert([
+    {
+      user_id: user.id,
+      competition_id: 1,
+      amount: 99,
+      transaction_id: transactionId,
+      screenshot_url: fileName,
+      status: "pending",
+    },
+  ]);
+
+if (error) {
+  alert(error.message);
   setLoading(false);
   return;
 }
-const { error } = await supabase
-        .from("payments")
-        .insert([
-          {
-            user_id: user.id,
-            competition_id: competitionId,
-            amount: 99,
-            transaction_id: transactionId,
-            screenshot_url: fileName,
-            status: "pending",
-          },
-        ]);
-
-      if (error) {
-        alert(error.message);
-        setLoading(false);
-        return;
-      }
 
       alert("Payment submitted successfully!");
 
