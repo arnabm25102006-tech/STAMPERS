@@ -5,10 +5,10 @@ export default function FeaturedCompetition() {
       <div className="relative rounded-[40px] overflow-hidden border border-zinc-800">
 
         <img
-          src="/featured.jpg"
-          alt="Featured Competition"
-          className="w-full h-[600px] object-cover"
-        />
+  src="https://rgpywlitnyfhujhefkqy.supabase.co/storage/v1/object/public/competition-images/STAMPERS.png"
+  alt="Featured Competition"
+  className="w-full h-[600px] object-cover"
+/>
 
         <div className="absolute inset-0 bg-black/60" />
 
