@@ -64,27 +64,7 @@ export default function Home()
   {/* Right Side */}
   {/* Floating Login Button */}
 <div className="">
- <button
-  className="
-    px-8
-    py-3
-    rounded-full
-    bg-gradient-to-r
-    from-yellow-300
-    via-yellow-400
-    to-amber-500
-    text-black
-    font-semibold
-    text-lg
-    shadow-[0_0_20px_rgba(255,200,0,0.25)]
-    hover:scale-105
-    transition-all
-    duration-300
-    self-center
-  "
->
-  Login / Register →
-</button>
+ <a href="/register/1" className="px-8 py-3 rounded-full bg-gradient-to-r from-yellow-300 via-yellow-400 to-amber-500 text-black font-semibold text-lg shadow-[0_0_20px_rgba(255,200,0,0.25)] hover:scale-105 transition-all duration-300 self-center">Login / Register →</a>
 </div>
 </header>
         <Footer />
